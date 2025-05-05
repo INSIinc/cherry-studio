@@ -66,7 +66,9 @@ export class WindowService {
       vibrancy: 'sidebar',
       visualEffectState: 'active',
       titleBarStyle: isLinux ? 'default' : 'hidden',
-      titleBarOverlay: nativeTheme.shouldUseDarkColors ? titleBarOverlayDark : titleBarOverlayLight,
+      ...(isLinux
+        ? {}
+        : { titleBarOverlay: nativeTheme.shouldUseDarkColors ? titleBarOverlayDark : titleBarOverlayLight }),
       backgroundColor: isMac ? undefined : nativeTheme.shouldUseDarkColors ? '#181818' : '#FFFFFF',
       darkTheme: nativeTheme.shouldUseDarkColors,
       trafficLightPosition: { x: 8, y: 12 },
@@ -323,7 +325,7 @@ export class WindowService {
 
       /**
        * 上述逻辑以下:
-       * win/linux: 是“开启托盘+设置关闭时最小化到托盘”的情况
+       * win/linux: 是"开启托盘+设置关闭时最小化到托盘"的情况
        * mac: 任何情况都会到这里，因此需要单独处理mac
        */
 

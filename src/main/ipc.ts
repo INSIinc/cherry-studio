@@ -135,8 +135,14 @@ export function registerIpc(mainWindow: BrowserWindow, app: Electron.App) {
       nativeTheme.removeAllListeners('updated')
     }
 
-    mainWindow?.setTitleBarOverlay &&
-      mainWindow.setTitleBarOverlay(nativeTheme.shouldUseDarkColors ? titleBarOverlayDark : titleBarOverlayLight)
+    if (mainWindow && typeof mainWindow.setTitleBarOverlay === 'function') {
+      try {
+        mainWindow.setTitleBarOverlay(nativeTheme.shouldUseDarkColors ? titleBarOverlayDark : titleBarOverlayLight)
+      } catch (error) {
+        console.error('Failed to set title bar overlay:', error)
+      }
+    }
+
     configManager.setTheme(theme)
     notifyThemeChange()
   })

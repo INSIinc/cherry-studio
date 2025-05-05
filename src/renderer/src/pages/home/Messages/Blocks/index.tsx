@@ -54,7 +54,6 @@ const MessageBlockRenderer: React.FC<Props> = ({ blocks, message }) => {
   // 根据blocks类型处理渲染数据
   const renderedBlocks = blocks.map((blockId) => blockEntities[blockId]).filter(Boolean)
   const groupedBlocks = filterImageBlockGroups(renderedBlocks)
-
   return (
     <>
       {groupedBlocks.map((block) => {
